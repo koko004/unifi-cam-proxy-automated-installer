@@ -49,7 +49,6 @@ while [ $opt != '' ]
             rm unifi-cam-proxy1/docker-compose.yml
             rm unifi-cam-proxy1/docker/entrypoint.sh
             pwd
-            cd ..
             pwd
             cd unifi-cam-proxy2
             rm unifi-cam-proxy2/docker-compose.yml
