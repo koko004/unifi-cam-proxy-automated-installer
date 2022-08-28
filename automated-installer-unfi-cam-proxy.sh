@@ -65,7 +65,7 @@ services:
       - './client.pem:/client.pem'
     environment:
       - "HOST=192.168.1.228"
-      - "TOKEN=72VD4ytlMa0Xi0sG3TGz15ZdtZD38EUU"
+      - "TOKEN=B7CanJmwUbGbCiW1UfLMZHj0LSyVFka8"
       - "RTSP_URL=rtsp://hassio:adolfin21@192.168.1.75:554/stream1"
     restart: always" >> docker-compose.yml
 cd /root
@@ -79,7 +79,7 @@ services:
       - './client.pem:/client.pem'
     environment:
       - "HOST=192.168.1.228"
-      - "TOKEN=72VD4ytlMa0Xi0sG3TGz15ZdtZD38EUU"
+      - "TOKEN=B7CanJmwUbGbCiW1UfLMZHj0LSyVFka8"
       - "RTSP_URL=rtsp://admin:@192.168.1.77:554"
     restart: always" >> docker-compose.yml
 cd /root
@@ -164,7 +164,7 @@ services:
       - './client.pem:/client.pem'
     environment:
       - "HOST=192.168.1.228"
-      - "TOKEN=72VD4ytlMa0Xi0sG3TGz15ZdtZD38EUU"
+      - "TOKEN=B7CanJmwUbGbCiW1UfLMZHj0LSyVFka8"
       - "RTSP_URL=rtsp://hassio:adolfin21@192.168.1.75:554/stream1"
     restart: always" >> docker-compose.yml
 
@@ -187,7 +187,7 @@ echo '#!/bin/sh
 
 if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
   echo "Using RTSP stream from $RTSP_URL"
-  exec unifi-cam-proxy --host "$HOST" --name "${NAME:-unifi-cam-proxy}" --mac "${MAC:-'AA:BB:CC:00:10:22'}" --cert /client.pem --token "$TOKEN" rtsp -s "$RTSP_URL"
+  exec unifi-cam-proxy --host "$HOST" --name "${NAME:-unifi-cam-proxy}" --mac "${MAC:-'AA:BB:CC:00:06:22'}" --cert /client.pem --token "$TOKEN" rtsp -s "$RTSP_URL"
 fi
 
 exec "$@"' >> entrypoint.sh
@@ -215,7 +215,7 @@ services:
       - './client.pem:/client.pem'
     environment:
       - "HOST=192.168.1.228"
-      - "TOKEN=72VD4ytlMa0Xi0sG3TGz15ZdtZD38EUU"
+      - "TOKEN=B7CanJmwUbGbCiW1UfLMZHj0LSyVFka8"
       - "RTSP_URL=rtsp://admin:@192.168.1.77:554"
     restart: always" >> docker-compose.yml
 
@@ -238,7 +238,7 @@ echo '#!/bin/sh
 
 if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
   echo "Using RTSP stream from $RTSP_URL"
-  exec unifi-cam-proxy --host "$HOST" --name "${NAME:-unifi-cam-proxy}" --mac "${MAC:-'AA:BB:CC:00:11:22'}" --cert /client.pem --token "$TOKEN" rtsp -s "$RTSP_URL"
+  exec unifi-cam-proxy --host "$HOST" --name "${NAME:-unifi-cam-proxy}" --mac "${MAC:-'AA:BB:CC:00:07:22'}" --cert /client.pem --token "$TOKEN" rtsp -s "$RTSP_URL"
 fi
 
 exec "$@"' >> entrypoint.sh
