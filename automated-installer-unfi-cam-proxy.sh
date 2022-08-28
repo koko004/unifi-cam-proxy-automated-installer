@@ -106,7 +106,6 @@ openssl x509 -req -sha256 -days 36500 -in /tmp/server.csr -signkey /tmp/private.
 cat /tmp/private.key /tmp/public.key > client.pem
 rm -f /tmp/private.key /tmp/public.key /tmp/server.csr
 cd ..
-cd unifi-cam-proxy1 && docker-compose up -d && cd .. && cd unifi-cam-proxy2 && docker-compose up -d
 echo 'ALL RECREATED'
 cd unifi-cam-proxy1 && docker-compose up -d
 cd ..
