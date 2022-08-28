@@ -42,15 +42,21 @@ while [ $opt != '' ]
             docker network rm unifi-cam-proxy1_default && docker network rm unifi-cam-proxy2_default
             echo 'REMOVE NETWORKS' && docker network ls
             docker image rm unifi-cam-proxy1_unifi-cam-proxy1 unifi-cam-proxy2_unifi-cam-proxy2 python:3.8-alpine3.10
+            echo 'REMOVE IMAGES' && docker image ls
             cd ..
+            pwd
             cd unifi-cam-proxy1
             rm unifi-cam-proxy1/docker-compose.yml
             rm unifi-cam-proxy1/docker/entrypoint.sh
+            pwd
             cd ..
+            pwd
             cd unifi-cam-proxy2
             rm unifi-cam-proxy2/docker-compose.yml
             rm unifi-cam-proxy2/docker/entrypoint.sh
+            pwd
             cd ..
+            pwd
             cd unifi-cam-proxy1            
 echo "version: '3.2'
 services:
@@ -64,8 +70,11 @@ services:
       - "TOKEN=72VD4ytlMa0Xi0sG3TGz15ZdtZD38EUU"
       - "RTSP_URL=rtsp://hassio:adolfin21@192.168.1.75:554/stream1"
     restart: always" >> docker-compose.yml
+pwd
 cd ..
+pwd
 cd unifi-cam-proxy2
+pwd
 echo "version: '3.2'
 services:   
   unifi-cam-proxy2:
@@ -78,7 +87,9 @@ services:
       - "TOKEN=72VD4ytlMa0Xi0sG3TGz15ZdtZD38EUU"
       - "RTSP_URL=rtsp://admin:@192.168.1.77:554"
     restart: always" >> docker-compose.yml
+pwd
 cd ..
+pwd
 cd unifi-cam-proxy1 && cd docker && rm entrypoint.sh
 echo '#!/bin/sh
 
@@ -89,7 +100,9 @@ fi
 
 exec "$@"' >> entrypoint.sh
 chmod +x entrypoint.sh
+pwd
 cd ..
+pwd
 cd unifi-cam-proxy2 && cd docker && rm entrypoint.sh
 echo '#!/bin/sh
 
@@ -100,7 +113,9 @@ fi
 
 exec "$@"' >> entrypoint.sh
 chmod +x entrypoint.sh
+pwd
 cd ..
+pwd
 cd unifi-cam-proxy1
 openssl ecparam -out /tmp/private.key -name prime256v1 -genkey -noout
 openssl req -new -sha256 -key /tmp/private.key -out /tmp/server.csr -subj "/C=TW/L=Taipei/O=Ubiquiti Networks Inc./OU=devint/CN=camera.ubnt.dev/emailAddress=support@ubnt.com"
@@ -108,6 +123,7 @@ openssl x509 -req -sha256 -days 36500 -in /tmp/server.csr -signkey /tmp/private.
 cat /tmp/private.key /tmp/public.key > client.pem
 rm -f /tmp/private.key /tmp/public.key /tmp/server.csr
 cd ..
+pwd
 cd unifi-cam-proxy2
 openssl ecparam -out /tmp/private.key -name prime256v1 -genkey -noout
 openssl req -new -sha256 -key /tmp/private.key -out /tmp/server.csr -subj "/C=TW/L=Taipei/O=Ubiquiti Networks Inc./OU=devint/CN=camera.ubnt.dev/emailAddress=support@ubnt.com"
@@ -116,10 +132,7 @@ cat /tmp/private.key /tmp/public.key > client.pem
 rm -f /tmp/private.key /tmp/public.key /tmp/server.csr
 cd ..
 echo 'ALL RECREATED'
-pwd
-cd unifi-cam-proxy1 && docker-compose up -d
-cd ..
-cd unifi-cam-proxy2 && docker-compose up -d;
+pwd;
             show_menu;
         ;;
         2) clear;
