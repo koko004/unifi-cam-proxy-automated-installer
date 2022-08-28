@@ -80,7 +80,7 @@ services:
       - "RTSP_URL=rtsp://admin:@192.168.1.77:554"
     restart: always" >> docker-compose.yml
 cd /root
-cd unifi-cam-proxy1 && cd docker && rm entrypoint.sh
+cd unifi-cam-proxy1
 echo '#!/bin/sh
 
 if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
@@ -91,7 +91,7 @@ fi
 exec "$@"' >> entrypoint.sh
 chmod +x entrypoint.sh
 cd /root
-cd unifi-cam-proxy2 && cd docker && rm entrypoint.sh
+cd unifi-cam-proxy2
 echo '#!/bin/sh
 
 if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
