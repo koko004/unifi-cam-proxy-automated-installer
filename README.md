@@ -5,15 +5,20 @@ UniFi Camera Proxy Automated Install
 
 ## This REPO
 
-This script is made for a fast install and reinstall Non Unifi Cameras in Unifi Protect Instance. App is constructed by keshavdv you can visit his repository here: https://github.com/keshavdv/unifi-cam-proxy I only made an automated script for install, reinstall, remove cameras creating cert, docker image, mac and Unifi-Protect instace.
+This script is made for a fast install and reinstall Non Unifi Cameras in Unifi Protect Instance. 
+<br>
+App is constructed by keshavdv you can visit his repository here: https://github.com/keshavdv/unifi-cam-proxy 
+<br>
+I only made an automated script for install, reinstall, remove cameras creating cert, docker image, mac and Unifi-Protect instace.
 
 ## Fast Init
 
 First run Unifi-Protect installer then add Camera and select G3 Micro cam, follow instructions and capture QR to file.
 Upload the QR captured to https://zxing.org cap copy 4 line, this is the TOKEN and paste it in this script in section COMPLETE INSTALL you can change MAC from entrypoint.sh.
 This script is made for 2 cams you can add more or remove editing COMPLETE INSTALL section
+<br>
 NOTE: You can use same QR for both cameras
-
+<br>
 
 ```
 git clone https://github.com/koko004/unifi-cam-proxy-automated-installer
