@@ -118,7 +118,7 @@ rm -f /tmp/private.key /tmp/public.key /tmp/server.csr
 cd /root
 #IF FAILS REMOVE CREATED FILES
 rm -rf client.pem docker-compose.yml entrypoint.sh
-echo 'ALL RECREATED';
+echo ' ************************************************************************************************* ALL RECREATED';
             show_menu;
         ;;
         2) clear;
@@ -134,7 +134,7 @@ echo 'ALL RECREATED';
             echo 'REMOVE NETWORKS' && docker network ls
             docker image rm unifi-cam-proxy1_unifi-cam-proxy1 unifi-cam-proxy2_unifi-cam-proxy2 python:3.8-alpine3.10
             echo 'REMOVE IMAGES' && docker image ls
-            echo 'ALL ERASE'; #REINSTALL;
+            echo '************************************************************************************************* ALL ERASE'; #REINSTALL;
             show_menu;
         ;;
         3) clear;
@@ -189,7 +189,7 @@ echo '***** ENTRYPOINT CREATED *****'
 #up
 docker-compose up -d
 cd ..
-echo '***** CAM 1 UP *****'
+echo '****************************************************************** CAM 1 UP *****'
 
 #cam2
 git clone https://github.com/koko004/unifi-cam-proxy-automated-installer unifi-cam-proxy2
@@ -239,10 +239,10 @@ echo '***** ENTRYPOINT CREATED *****'
 
 #up
 docker-compose up -d
-echo 'CAM 2 UP'
+echo '****************************************************************** CAM 2 UP'
 cd ..
 
-echo '***** INSTALL COMPLETE *****';
+echo '******************************************************************  INSTALL COMPLETE ****************************************************************** ';
             show_menu;
         ;;
         4) clear;
