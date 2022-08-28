@@ -2,6 +2,16 @@
 
 UniFi Camera Proxy
 ==================
+
+
+## Fast Init
+-rm rf unifi-cam-proxy-automated-installer
+git clone https://github.com/koko004/unifi-cam-proxy-automated-installer
+cd unifi-cam-proxy-automated-installer
+chmod +x automated-installer-unfi-cam-proxy.sh
+./automated-installer-unfi-cam-proxy.sh
+
+
 ## About
 
 This enables using non-Ubiquiti cameras within the UniFi Protect ecosystem. This is
