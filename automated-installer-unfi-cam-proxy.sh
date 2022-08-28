@@ -45,12 +45,12 @@ while [ $opt != '' ]
             echo 'REMOVE IMAGES' && docker image ls
             cd /root
             cd unifi-cam-proxy1
-            rm unifi-cam-proxy1/docker-compose.yml
-            rm unifi-cam-proxy1/docker/entrypoint.sh
+            rm -rf unifi-cam-proxy1/docker-compose.yml
+            rm -rf unifi-cam-proxy1/docker/entrypoint.sh
             cd /root
             cd unifi-cam-proxy2
-            rm unifi-cam-proxy2/docker-compose.yml
-            rm unifi-cam-proxy2/docker/entrypoint.sh
+            rm -rf unifi-cam-proxy2/docker-compose.yml
+            rm -rf unifi-cam-proxy2/docker/entrypoint.sh
             cd /root
             cd unifi-cam-proxy1            
 echo "version: '3.2'
