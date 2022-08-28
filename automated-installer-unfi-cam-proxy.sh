@@ -143,8 +143,7 @@ echo 'ALL RECREATED';
 cd ..
 #!/bin/sh
 #cam1
-git clone https://github.com/koko004/unifi-cam-proxy-automated-installer
-mv unifi-cam-proxy-automated-installer unifi-cam-proxy1
+git clone https://github.com/koko004/unifi-cam-proxy-automated-installer unifi-cam-proxy1
 cd unifi-cam-proxy1
 rm docker-compose.yml
 echo "version: '3.2'
@@ -189,11 +188,11 @@ echo '***** ENTRYPOINT CREATED *****'
 
 #up
 docker-compose up -d
-echo '***** CAM 1 UP *****'
 cd ..
+echo '***** CAM 1 UP *****'
 
 #cam2
-git clone https://github.com/koko004/unifi-cam-proxy-automated-installer
+git clone https://github.com/koko004/unifi-cam-proxy-automated-installer unifi-cam-proxy2
 mv unifi-cam-proxy-automated-installer unifi-cam-proxy2
 cd unifi-cam-proxy2
 rm docker-compose.yml
