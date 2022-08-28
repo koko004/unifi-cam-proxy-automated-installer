@@ -123,6 +123,7 @@ cd unifi-cam-proxy1 && docker-compose up -d
 echo ' ************************************************************************************************* CAM1 RECREATED'
 cd ..
 cd unifi-cam-proxy2 && docker-compose up -d
+cd ..
 echo ' ************************************************************************************************* CAM2 RECREATED';
             show_menu;
         ;;
