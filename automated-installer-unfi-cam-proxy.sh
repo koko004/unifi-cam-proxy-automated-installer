@@ -1,4 +1,7 @@
 #!/bin/sh
+# Decode QR page https://zxing.org/w/decode.jspx
+# Original project https://github.com/keshavdv/unifi-cam-proxy
+
 show_menu(){
     normal=`echo "\033[m"`
     menu=`echo "\033[36m"` #Blue
