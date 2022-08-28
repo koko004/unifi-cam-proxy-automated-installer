@@ -34,6 +34,13 @@ while [ $opt != '' ]
       case $opt in
         1) clear;
             option_picked "Option 1 CHANGED PARAMETERS";
+            docker container stop unifi-cam-proxy1 unifi-cam-proxy2
+            echo 'STOP CONTAINERS'
+            docker container rm unifi-cam-proxy1 unifi-cam-proxy2
+            echo 'REMOVE CONTAINERS' && docker container ls
+            docker network rm unifi-cam-proxy1_default && docker network rm unifi-cam-proxy2_default
+            echo 'REMOVE NETWORKS' && docker network ls
+            docker image rm unifi-cam-proxy1_unifi-cam-proxy1 unifi-cam-proxy2_unifi-cam-proxy2 python:3.8-alpine3.10
 rm unifi-cam-proxy1/docker-compose.yml && rm unifi-cam-proxy1/docker/entrypoint.sh && rm unifi-cam-proxy2/docker-compose.yml && rm unifi-cam-proxy2/docker/entrypoint.sh
 cd unifi-cam-proxy1            
 echo "version: '3.2'
