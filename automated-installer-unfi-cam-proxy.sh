@@ -43,7 +43,8 @@ while [ $opt != '' ]
             echo 'REMOVE NETWORKS' && docker network ls
             docker image rm unifi-cam-proxy1_unifi-cam-proxy1 unifi-cam-proxy2_unifi-cam-proxy2 python:3.8-alpine3.10
             echo 'REMOVE IMAGES' && docker image ls
-            cd ..
+            pwd
+            pwd
             pwd
             cd unifi-cam-proxy1
             rm unifi-cam-proxy1/docker-compose.yml
