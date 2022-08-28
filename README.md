@@ -1,33 +1,34 @@
 [![unifi-cam-proxy Discord](https://img.shields.io/discord/937237037466124330?color=0559C9&label=Discord&logo=discord&logoColor=%23FFFFFF&style=for-the-badge)](https://discord.gg/Bxk9uGT6MW)
 
-UniFi Camera Proxy
-==================
+UniFi Camera Proxy Automated Install
+====================================
 
+## This REPO
+
+This script is made for a fast install and reinstall Non Unifi Cameras in Unifi Protect Instance. App is constructed by keshavdv you can visit his repository here: https://github.com/keshavdv/unifi-cam-proxy I only made an automated script for install, reinstall, remove cameras creating cert, docker image, mac and Unifi-Protect instace.
 
 ## Fast Init
 
+First run Unifi-Protect installer then add Camera and select G3 Micro cam, follow instructions and capture QR to file.
+Upload the QR captured to https://zxing.org cap copy 4 line, this is the TOKEN and paste it in this script in section COMPLETE INSTALL you can change MAC from entrypoint.sh.
+This script is made for 2 cams you can add more or remove editing COMPLETE INSTALL section
+NOTE: You can use same QR for both cameras
+
+
 ```
-rm -rf unifi-cam-proxy-automated-installer
 git clone https://github.com/koko004/unifi-cam-proxy-automated-installer
 cd unifi-cam-proxy-automated-installer
 chmod +x automated-installer-unfi-cam-proxy.sh
 ./automated-installer-unfi-cam-proxy.sh
 ```
 
-
-
-
 ## About
+
+This script is made from work of keshavdv you can visit his repository here: https://github.com/keshavdv/unifi-cam-proxy
 
 This enables using non-Ubiquiti cameras within the UniFi Protect ecosystem. This is
 particularly useful to use existing RTSP-enabled cameras in the same UI and
 mobile app as your other Unifi devices.
-
-Things that work:
-* Live streaming
-* Full-time recording
-* Motion detection with certain cameras
-* Smart Detections using [Frigate](https://github.com/blakeblackshear/frigate)
 
 ## Documentation
 
