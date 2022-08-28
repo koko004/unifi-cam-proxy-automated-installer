@@ -34,6 +34,7 @@ while [ $opt != '' ]
       case $opt in
         1) clear;
             option_picked "Option 1 CHANGED PARAMETERS";
+# ************************************************************************************************* 1 
             docker container stop unifi-cam-proxy1 unifi-cam-proxy2
             echo 'STOP CONTAINERS'
             docker container rm unifi-cam-proxy1 unifi-cam-proxy2
@@ -42,6 +43,7 @@ while [ $opt != '' ]
             echo 'REMOVE NETWORKS' && docker network ls
             docker image rm unifi-cam-proxy1_unifi-cam-proxy1 unifi-cam-proxy2_unifi-cam-proxy2 python:3.8-alpine3.10
 rm unifi-cam-proxy1/docker-compose.yml && rm unifi-cam-proxy1/docker/entrypoint.sh && rm unifi-cam-proxy2/docker-compose.yml && rm unifi-cam-proxy2/docker/entrypoint.sh
+cd ..
 cd unifi-cam-proxy1            
 echo "version: '3.2'
 services:
@@ -105,6 +107,7 @@ openssl req -new -sha256 -key /tmp/private.key -out /tmp/server.csr -subj "/C=TW
 openssl x509 -req -sha256 -days 36500 -in /tmp/server.csr -signkey /tmp/private.key -out /tmp/public.key
 cat /tmp/private.key /tmp/public.key > client.pem
 rm -f /tmp/private.key /tmp/public.key /tmp/server.csr
+cd ..
 echo 'ALL RECREATED'
 pwd
 cd unifi-cam-proxy1 && docker-compose up -d
@@ -114,6 +117,7 @@ cd unifi-cam-proxy2 && docker-compose up -d;
         ;;
         2) clear;
             option_picked "Option 2 COMPLETE REMOVE";
+# ************************************************************************************************* 2
             rm -rf unifi-cam-proxy1 unifi-cam-proxy2
             echo 'REMOVE DIRECTORIES' && ls
             docker container stop unifi-cam-proxy1 unifi-cam-proxy2
@@ -129,6 +133,7 @@ cd unifi-cam-proxy2 && docker-compose up -d;
         ;;
         3) clear;
             option_picked "Option 3 COMPLETE INSTALL";
+# ************************************************************************************************* 3
 #!/bin/sh
 #cam1
 git clone https://github.com/koko004/unifi-cam-proxy-automated-installer
@@ -236,6 +241,7 @@ echo '***** INSTALL COMPLETE *****';
         ;;
         4) clear;
             option_picked "Option 4 LAZYDOCKER";
+# ************************************************************************************************* 4
             LAZYDOCKER_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazydocker/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+')
 
             curl -Lo lazydocker.tar.gz "https://github.com/jesseduffield/lazydocker/releases/latest/download/lazydocker_${LAZYDOCKER_VERSION}_Linux_x86_64.tar.gz"
@@ -250,6 +256,7 @@ echo '***** INSTALL COMPLETE *****';
         ;;
         5) clear;
             option_picked "Option 5 STATUS";
+# ************************************************************************************************* 5
             lazydocker; #STATUS;
             show_menu;
         ;;
