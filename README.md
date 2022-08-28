@@ -15,7 +15,9 @@ I only made an automated script for install, reinstall, remove cameras creating 
 
 First run Unifi-Protect installer then add Camera and select G3 Micro cam, follow instructions and capture QR to file.
 
-Upload the QR captured to https://zxing.org cap copy 4 line, this is the TOKEN and you need paste it in this script in section COMPLETE INSTALL and TOKEN fields. You can change MACs from entrypoint.sh files.
+Upload the QR captured to https://zxing.org and copy 4 line this is the TOKEN and you need paste it in this script in section COMPLETE INSTALL and TOKEN fields. 
+
+You can change MACs from entrypoint.sh files.
 
 This script is made for 2 cams you can add more or remove editing COMPLETE INSTALL section.
 
