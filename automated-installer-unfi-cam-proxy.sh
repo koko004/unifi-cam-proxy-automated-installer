@@ -107,6 +107,7 @@ cat /tmp/private.key /tmp/public.key > client.pem
 rm -f /tmp/private.key /tmp/public.key /tmp/server.csr
 cd ..
 echo 'ALL RECREATED'
+pwd
 cd unifi-cam-proxy1 && docker-compose up -d
 cd ..
 cd unifi-cam-proxy2 && docker-compose up -d;
