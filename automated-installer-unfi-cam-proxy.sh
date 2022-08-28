@@ -118,7 +118,13 @@ rm -f /tmp/private.key /tmp/public.key /tmp/server.csr
 cd /root
 #IF FAILS REMOVE CREATED FILES
 rm -rf client.pem docker-compose.yml entrypoint.sh
-echo ' ************************************************************************************************* ALL RECREATED';
+echo ' ************************************************************************************************* ALL RECREATED'
+cd unifi-cam-proxy1 && docker-compose up -d
+echo ' ************************************************************************************************* CAM1 RECREATED'
+cd ..
+cd unifi-cam-proxy2 && docker-compose up -d
+echo ' ************************************************************************************************* CAM2 RECREATED'
+;
             show_menu;
         ;;
         2) clear;
