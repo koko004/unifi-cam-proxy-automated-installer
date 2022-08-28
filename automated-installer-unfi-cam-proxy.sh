@@ -122,7 +122,7 @@ echo 'ALL RECREATED';
             option_picked "Option 3 COMPLETE INSTALL";
 #!/bin/sh
 #cam1
-git clone https://github.com/keshavdv/unifi-cam-proxy
+git clone https://github.com/koko004/unifi-cam-proxy-automated-installer
 mv unifi-cam-proxy unifi-cam-proxy1
 cd unifi-cam-proxy1
 rm docker-compose.yml
@@ -172,7 +172,7 @@ echo '***** CAM 1 UP *****'
 cd ..
 
 #cam2
-git clone https://github.com/keshavdv/unifi-cam-proxy
+https://github.com/koko004/unifi-cam-proxy-automated-installer
 mv unifi-cam-proxy unifi-cam-proxy2
 cd unifi-cam-proxy2
 rm docker-compose.yml
