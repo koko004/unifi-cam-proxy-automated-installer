@@ -312,7 +312,7 @@ services:
     image: markdegroot/unifi-protect-x86:latest
 volumes:
    unifi-protect:
-   unifi-protect-db:"
+   unifi-protect-db:" >> docker-compose.yml
 docker-compose up -d; #UNIFI-PROTECT;
             show_menu;
         ;;
