@@ -10,7 +10,7 @@ show_menu(){
     fgred=`echo "\033[31m"`
     printf "\n${menu}*********************************************${normal}\n"
     printf "\n${menu}******** U N I F I - CAM - P R O X Y ********${normal}\n"
-    printf "hostname -I | cut -d' ' -f1"
+    printf "\n${menu}hostname -I | cut -d' ' -f1${normal}\n"
     printf "${menu}**${number} 1)${menu} CHANGED PARAMETERS - RECONTRUCT${normal}\n"
     printf "${menu}**${number} 2)${menu} REMOVE ALL ${normal}\n"
     printf "${menu}**${number} 3)${menu} INSTALL ${normal}\n"
