@@ -15,6 +15,7 @@ show_menu(){
     printf "${menu}**${number} 3)${menu} INSTALL ${normal}\n"
     printf "${menu}**${number} 4)${menu} LAZYDOCKER ${normal}\n"
     printf "${menu}**${number} 5)${menu} STATUS${normal}\n"
+    printf "${menu}**${number} 6)${menu} INSTALL UNIFI-PROTECT${normal}\n"
     printf "${menu}*********************************************${normal}\n"
     printf "Please enter a menu option and enter or ${fgred}x to exit. ${normal}"
     read opt
