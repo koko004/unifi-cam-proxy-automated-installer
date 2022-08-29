@@ -280,7 +280,7 @@ echo '******************************************************************  INSTAL
             option_picked "Option 6 UNIFI-PROTECT";
 # ************************************************************************************************* 5
             cd /root
-            mkir unifi-protect
+            mkdir unifi-protect
             echo "version: '3'
 services:
   unifi-protect:
