@@ -279,8 +279,8 @@ echo '******************************************************************  INSTAL
          6) clear;
             option_picked "Option 6 UNIFI-PROTECT";
 # ************************************************************************************************* 5
-            cd ..
-            mkir unifiprotect
+            cd /root
+            mkir unifi-protect
             echo "version: '3'
 services:
   unifi-protect:
@@ -313,7 +313,7 @@ services:
 volumes:
    unifi-protect:
    unifi-protect-db:"
-docker-compose up-d; #UNIFI-PROTECT;
+docker-compose up -d; #UNIFI-PROTECT;
             show_menu;
         ;;
         x)exit;
