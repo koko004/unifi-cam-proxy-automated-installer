@@ -275,6 +275,43 @@ echo '******************************************************************  INSTAL
             lazydocker; #STATUS;
             show_menu;
         ;;
+         6) clear;
+            option_picked "Option 6 UNIFI-PROTECT";
+# ************************************************************************************************* 5
+            echo "version: '3'
+services:
+  unifi-protect:
+    container_name: unifi-protect-x86
+    ports:
+        - '7080:7080'
+        - '7442:7442'
+        - '7443:7443'
+        - '7444:7444'
+        - '7447:7447'
+        - '7550:7550'
+    volumes:
+        - 'unifi-protect:/srv/unifi-protect'
+        - 'unifi-protect-db:/var/lib/postgresql/10/main'
+    environment:
+        - TZ=Europe/Madrid
+        - PUID=999
+        - PGID=999
+        - PUID_POSTGRES=102
+        - PGID_POSTGRES=104
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+    network_mode: host
+    restart: always
+    tmpfs:
+      - /srv/unifi-protect/temp
+    image: markdegroot/unifi-protect-x86:latest
+volumes:
+   unifi-protect:
+   unifi-protect-db:"; #UNIFI-PROTECT;
+            show_menu;
+        ;;
         x)exit;
         ;;
         \n)exit;
