@@ -135,6 +135,7 @@ echo ' *************************************************************************
         2) clear;
             option_picked "Option 2 COMPLETE REMOVE";
 # ************************************************************************************************* 2
+            cd /root
             rm -rf unifi-cam-proxy1 unifi-cam-proxy2
             echo 'REMOVE DIRECTORIES' && ls
             docker container stop unifi-cam-proxy1 unifi-cam-proxy2
