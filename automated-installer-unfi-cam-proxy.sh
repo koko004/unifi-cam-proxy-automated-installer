@@ -284,6 +284,7 @@ echo '******************************************************************  INSTAL
             docker container stop unifi-protect-x86
             docker container rm unifi-protect-x86
             docker volume rm unifi-protect_unifi-protect && docker volume rm unifi-protect_unifi-protect-db
+            docker image rm markdegroot/unifi-protect-x86
             rm -rf unifi-protect
             #INSTALL UNIFI-PROTECT
             mkdir unifi-protect && cd unifi-protect
