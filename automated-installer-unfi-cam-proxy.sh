@@ -280,6 +280,12 @@ echo '******************************************************************  INSTAL
             option_picked "Option 6 UNIFI-PROTECT";
 # ************************************************************************************************* 5
             cd /root
+            #REMOVE OLD INSTANCE IF EXIST
+            docker container stop unifi-protect-x86
+            docker container rm unifi-protect-x86
+            docker volume rm unifi-protect_unifi-protect && docker volume rm unifi-protect_unifi-protect-db
+            rm -rf unifi-protect
+            #INSTALL UNIFI-PROTECT
             mkdir unifi-protect && cd unifi-protect
             echo "version: '3'
 services:
@@ -313,7 +319,8 @@ services:
 volumes:
    unifi-protect:
    unifi-protect-db:" >> docker-compose.yml
-docker-compose up -d; #UNIFI-PROTECT;
+docker-compose up -d
+echo "You can login in https ip port 7443" ; #UNIFI-PROTECT;
             show_menu;
         ;;
         x)exit;
