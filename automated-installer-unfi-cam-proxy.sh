@@ -14,9 +14,10 @@ show_menu(){
     printf "${menu}**${number} 1)${menu} CHANGED PARAMETERS - RECONTRUCT${normal}\n"
     printf "${menu}**${number} 2)${menu} REMOVE ALL ${normal}\n"
     printf "${menu}**${number} 3)${menu} INSTALL ${normal}\n"
-    printf "${menu}**${number} 4)${menu} LAZYDOCKER ${normal}\n"
-    printf "${menu}**${number} 5)${menu} STATUS${normal}\n"
+    printf "${menu}**${number} 4)${menu} LAZYDOCKER - INSTALL${normal}\n"
+    printf "${menu}**${number} 5)${menu} STATUS - LAZYDOCKER${normal}\n"
     printf "${menu}**${number} 6)${menu} INSTALL UNIFI-PROTECT${normal}\n"
+    printf "${menu}**${number} 7)${menu} SET-PARAMETERS${normal}\n"
     printf "${menu}*********************************************${normal}\n"
     printf "Please enter a menu option and enter or ${fgred}x to exit. ${normal}"
     read opt
@@ -87,23 +88,19 @@ services:
 cd /root
 cd unifi-cam-proxy1
 echo '#!/bin/sh
-
 if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
   echo "Using RTSP stream from $RTSP_URL"
   exec unifi-cam-proxy --host "$HOST" --name "${NAME:-unifi-cam-proxy}" --mac "${MAC:-'AA:BB:CC:00:20:22'}" --cert /client.pem --token "$TOKEN" rtsp -s "$RTSP_URL"
 fi
-
 exec "$@"' >> entrypoint.sh
 chmod +x entrypoint.sh
 cd /root
 cd unifi-cam-proxy2
 echo '#!/bin/sh
-
 if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
   echo "Using RTSP stream from $RTSP_URL"
   exec unifi-cam-proxy --host "$HOST" --name "${NAME:-unifi-cam-proxy}" --mac "${MAC:-'AA:BB:CC:00:30:22'}" --cert /client.pem --token "$TOKEN" rtsp -s "$RTSP_URL"
 fi
-
 exec "$@"' >> entrypoint.sh
 chmod +x entrypoint.sh
 cd /root
@@ -187,12 +184,10 @@ echo '***** CERT CREATED *****'
 cd docker
 rm entrypoint.sh
 echo '#!/bin/sh
-
 if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
   echo "Using RTSP stream from $RTSP_URL"
   exec unifi-cam-proxy --host "$HOST" --name "${NAME:-unifi-cam-proxy}" --mac "${MAC:-'AA:BB:CC:00:01:22'}" --cert /client.pem --token "$TOKEN" rtsp -s "$RTSP_URL"
 fi
-
 exec "$@"' >> entrypoint.sh
 chmod +x entrypoint.sh
 cd ..
@@ -238,12 +233,10 @@ cd docker
 rm entrypoint.sh
 
 echo '#!/bin/sh
-
 if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
   echo "Using RTSP stream from $RTSP_URL"
   exec unifi-cam-proxy --host "$HOST" --name "${NAME:-unifi-cam-proxy}" --mac "${MAC:-'AA:BB:CC:00:02:22'}" --cert /client.pem --token "$TOKEN" rtsp -s "$RTSP_URL"
 fi
-
 exec "$@"' >> entrypoint.sh
 chmod +x entrypoint.sh
 cd ..
@@ -280,7 +273,7 @@ echo '******************************************************************  INSTAL
         ;;
          6) clear;
             option_picked "Option 6 UNIFI-PROTECT";
-# ************************************************************************************************* 5
+# ************************************************************************************************* 6
             cd /root
             echo 'REMOVE OLD INSTANCE IF EXIST'
             docker container stop unifi-protect-x86
@@ -328,6 +321,54 @@ echo 'UNIFI-PROTECT UP'
 docker-compose up -d
 echo 'You can login in your https ip port 7443'
 echo 'INSTALLED'; #UNIFI-PROTECT;
+            show_menu;
+        ;;
+        7) clear;
+            option_picked "Option 7 SET PARAMETERS";
+# ************************************************************************************************* 7
+            echo 'Set IP for NVR 1'
+            read NVRIP1
+            echo 'Set TOKEN for camera 1'
+            read TOKENCAM1
+            echo 'Set RTSP URL for camea 1'
+            read RTSPURLCAM1
+            rm /root/unifi-cam-proxy1/docker-compose.yml
+echo "version: '3.2'
+services:
+  unifi-cam-proxy1:
+    build: .
+    container_name: unifi-cam-proxy1
+    volumes:
+      - './client.pem:/client.pem'
+    environment:
+      - "HOST=$NVRIP1"
+      - "TOKEN=$TOKENCAM1"
+      - "RTSP_URL=$RTSPURLCAM1"
+    restart: always" >> docker-compose.yml
+            mv docker-compose.yml /root/unifi-cam-proxy1
+            echo 'DONE'
+            #CAM2
+            echo 'Set IP for NVR 2'
+            read NVRIP2
+            echo 'Set TOKEN for camera 2'
+            read TOKENCAM2
+            echo 'Set RTSP URL for camea 2'
+            read RTSPURLCAM2
+            rm /root/unifi-cam-proxy2/docker-compose.yml
+echo "version: '3.2'
+services:
+  unifi-cam-proxy2:
+    build: .
+    container_name: unifi-cam-proxy2
+    volumes:
+      - './client.pem:/client.pem'
+    environment:
+      - "HOST=$NVRIP2"
+      - "TOKEN=$TOKENCAM2"
+      - "RTSP_URL=$RTSPURLCAM2"
+    restart: always" >> docker-compose.yml
+            mv docker-compose.yml /root/unifi-cam-proxy2
+            echo 'DONE'; #SET-PARAMETERS;
             show_menu;
         ;;
         x)exit;
