@@ -106,7 +106,7 @@ cd /root; #SET-PARAMETERS;
             echo 'REMOVE IMAGES' && docker image ls
             echo '************************************************************************************************* ALL ERASED'
 #ENTREYPOINTS RECREATION
-cd /root/unifi-cam-proxy1
+cd /root/unifi-cam-proxy1/docker
 rm /root/unifi-cam-proxy1/docker/entrypoint.sh
 echo '#!/bin/sh
 if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
@@ -115,7 +115,7 @@ if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
 fi
 exec "$@"' >> entrypoint.sh
 chmod +x entrypoint.sh
-cd /root/unifi-cam-proxy2
+cd /root/unifi-cam-proxy2/docker
 rm /root/unifi-cam-proxy2/docker/entrypoint.sh
 echo '#!/bin/sh
 if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
