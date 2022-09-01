@@ -63,6 +63,7 @@ services:
       - "RTSP_URL=$RTSPURLCAM1"
     restart: always" >> docker-compose.yml
             echo 'DONE'
+            cd /root
             #CAM2
             mkdir /root/unifi-cam-proxy2 && cd /root/unifi-cam-proxy2
             echo 'Set IP for NVR 2'
