@@ -11,13 +11,14 @@ show_menu(){
     printf "\n${menu}*********************************************${normal}\n"
     printf "\n${menu}******** U N I F I - CAM - P R O X Y ********${normal}\n"
     printf "\n${menu}******** System IP $(hostname -I | cut -d' ' -f1) ********${normal}\n"
-    printf "${menu}**${number} 1)${menu} CHANGED PARAMETERS - RECONTRUCT${normal}\n"
-    printf "${menu}**${number} 2)${menu} REMOVE ALL ${normal}\n"
-    printf "${menu}**${number} 3)${menu} INSTALL ${normal}\n"
-    printf "${menu}**${number} 4)${menu} LAZYDOCKER - INSTALL${normal}\n"
-    printf "${menu}**${number} 5)${menu} STATUS - LAZYDOCKER${normal}\n"
-    printf "${menu}**${number} 6)${menu} INSTALL UNIFI-PROTECT${normal}\n"
-    printf "${menu}**${number} 7)${menu} SET-PARAMETERS${normal}\n"
+    printf "${menu}**${number} 1)${menu} SET-PARAMETERS${normal}\n"
+    printf "${menu}**${number} 2)${menu} REBUILD ${normal}\n"
+    printf "${menu}**${number} 3)${menu} REMOVE ALL${normal}\n"
+    printf "${menu}**${number} 4)${menu} INSTALL ${normal}\n"
+    printf "${menu}**${number} 5)${menu} LAZYDOCKER - INSTALL${normal}\n"
+    printf "${menu}**${number} 6)${menu} STATUS - LAZYDOCKER${normal}\n"
+    printf "${menu}**${number} 7)${menu} INSTALL UNIFI-PROTECT${normal}\n"
+
     printf "${menu}*********************************************${normal}\n"
     printf "Please enter a menu option and enter or ${fgred}x to exit. ${normal}"
     read opt
@@ -39,8 +40,57 @@ while [ $opt != '' ]
     else
       case $opt in
         1) clear;
-            option_picked "Option 1 CHANGED PARAMETERS";
-# ************************************************************************************************* 1 
+            option_picked "Option 1 SET PARAMETERS";
+# ************************************************************************************************* 1
+            echo 'Set IP for NVR 1'
+            read NVRIP1
+            echo 'Set TOKEN for camera 1'
+            read TOKENCAM1
+            echo 'Set RTSP URL for camea 1'
+            read RTSPURLCAM1
+            rm /root/unifi-cam-proxy1/docker-compose.yml
+            mkdir /root/unifi-cam-proxy1 && cd /root/unifi-cam-proxy1
+echo "version: '3.2'
+services:
+  unifi-cam-proxy1:
+    build: .
+    container_name: unifi-cam-proxy1
+    volumes:
+      - './client.pem:/client.pem'
+    environment:
+      - "HOST=$NVRIP1"
+      - "TOKEN=$TOKENCAM1"
+      - "RTSP_URL=$RTSPURLCAM1"
+    restart: always" >> docker-compose.yml
+            echo 'DONE'
+            #CAM2
+            echo 'Set IP for NVR 2'
+            read NVRIP2
+            echo 'Set TOKEN for camera 2'
+            read TOKENCAM2
+            echo 'Set RTSP URL for camea 2'
+            read RTSPURLCAM2
+            rm /root/unifi-cam-proxy2/docker-compose.yml
+            mkdir /root/unifi-cam-proxy2 && cd /root/unifi-cam-proxy2
+echo "version: '3.2'
+services:
+  unifi-cam-proxy2:
+    build: .
+    container_name: unifi-cam-proxy2
+    volumes:
+      - './client.pem:/client.pem'
+    environment:
+      - "HOST=$NVRIP2"
+      - "TOKEN=$TOKENCAM2"
+      - "RTSP_URL=$RTSPURLCAM2"
+    restart: always" >> docker-compose.yml
+            mv docker-compose.yml /root/unifi-cam-proxy2
+            echo 'DONE'; #SET-PARAMETERS;
+            show_menu;
+        ;;
+        2) clear;
+            option_picked "Option 2 REBUILD";
+# ************************************************************************************************* 2 
             docker container stop unifi-cam-proxy1 unifi-cam-proxy2
             echo 'STOPED CONTAINERS'
             docker container rm unifi-cam-proxy1 unifi-cam-proxy2
@@ -93,17 +143,17 @@ echo 'CERTS CREATED'
 #IF FAILS REMOVE CREATED FILES
 #rm -rf client.pem docker-compose.yml entrypoint.sh
 echo ' ************************************************************************************************* ALL RECREATED'
-cd unifi-cam-proxy1 && docker-compose up -d
+cd /root/unifi-cam-proxy1 && docker-compose up -d
 echo ' ************************************************************************************************* CAM1 RECREATED'
 cd ..
-cd unifi-cam-proxy2 && docker-compose up -d
+cd /root/unifi-cam-proxy2 && docker-compose up -d
 cd ..
 echo ' ************************************************************************************************* CAM2 RECREATED';
             show_menu;
         ;;
-        2) clear;
-            option_picked "Option 2 COMPLETE REMOVE";
-# ************************************************************************************************* 2
+        3) clear;
+            option_picked "Option 3 COMPLETE REMOVE";
+# ************************************************************************************************* 3
             cd /root
             rm -rf unifi-cam-proxy1 unifi-cam-proxy2
             echo 'REMOVE DIRECTORIES' && ls
@@ -115,18 +165,25 @@ echo ' *************************************************************************
             echo 'REMOVE NETWORKS' && docker network ls
             docker image rm unifi-cam-proxy1_unifi-cam-proxy1 unifi-cam-proxy2_unifi-cam-proxy2 python:3.8-alpine3.10
             echo 'REMOVE IMAGES' && docker image ls
-            echo '************************************************************************************************* ALL ERASE'; #REINSTALL;
+            echo '************************************************************************************************* ALL ERASED'; #REINSTALL;
             show_menu;
         ;;
-        3) clear;
-            option_picked "Option 3 COMPLETE INSTALL";
-# ************************************************************************************************* 3
+        4) clear;
+            option_picked "Option 4 COMPLETE INSTALL";
+# ************************************************************************************************* 4
 cd ..
 #!/bin/sh
 #cam1
-git clone https://github.com/koko004/unifi-cam-proxy-automated-installer unifi-cam-proxy1
-cd unifi-cam-proxy1
+git clone https://github.com/koko004/unifi-cam-proxy-automated-installer /root/unifi-cam-proxy1
+cd /root/unifi-cam-proxy1
 rm docker-compose.yml
+            echo 'Set IP for NVR 1'
+            read NVRIP1
+            echo 'Set TOKEN for camera 1'
+            read TOKENCAM1
+            echo 'Set RTSP URL for camea 1'
+            read RTSPURLCAM1
+
 echo "version: '3.2'
 services:
   unifi-cam-proxy1:
@@ -135,9 +192,9 @@ services:
     volumes:
       - './client.pem:/client.pem'
     environment:
-      - "HOST=192.168.1.228"
-      - "TOKEN=jL9VjlrYedc2tu0tKDH1nKIdMNF7gMnV"
-      - "RTSP_URL=rtsp://hassio:adolfin21@192.168.1.75:554/stream1"
+      - "HOST=$NVRIP1"
+      - "TOKEN=$TOKENCAM1"
+      - "RTSP_URL=$RTSPURLCAM1"
     restart: always" >> docker-compose.yml
 
 echo '***** COMPOSED CREATED *****'
@@ -153,8 +210,7 @@ echo '***** CERT CREATED *****'
 
 #entrypoing
 
-cd docker
-rm entrypoint.sh
+cd docker && rm entrypoint.sh
 echo '#!/bin/sh
 if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
   echo "Using RTSP stream from $RTSP_URL"
@@ -171,22 +227,27 @@ cd ..
 echo '****************************************************************** CAM 1 UP *****'
 
 #cam2
-git clone https://github.com/koko004/unifi-cam-proxy-automated-installer unifi-cam-proxy2
-mv unifi-cam-proxy-automated-installer unifi-cam-proxy2
-cd unifi-cam-proxy2
+git clone https://github.com/koko004/unifi-cam-proxy-automated-installer /root/unifi-cam-proxy2
+cd /root/unifi-cam-proxy2
 rm docker-compose.yml
+            echo 'Set IP for NVR 2'
+            read NVRIP2
+            echo 'Set TOKEN for camera 2'
+            read TOKENCAM2
+            echo 'Set RTSP URL for camera 2'
+            read RTSPURLCAM2
 
 echo "version: '3.2'
-services:   
+services:
   unifi-cam-proxy2:
     build: .
     container_name: unifi-cam-proxy2
     volumes:
       - './client.pem:/client.pem'
     environment:
-      - "HOST=192.168.1.228"
-      - "TOKEN=jL9VjlrYedc2tu0tKDH1nKIdMNF7gMnV"
-      - "RTSP_URL=rtsp://admin:@192.168.1.77:554"
+      - "HOST=$NVRIP2"
+      - "TOKEN=$TOKENCAM2"
+      - "RTSP_URL=$RTSPURLCAM2"
     restart: always" >> docker-compose.yml
 
 echo '***** COMPOSE CREATED *****'
@@ -201,8 +262,7 @@ rm -f /tmp/private.key /tmp/public.key /tmp/server.csr
 echo '***** CERT CREATED *****'
 
 #entrypoint
-cd docker
-rm entrypoint.sh
+cd docker && rm entrypoint.sh
 
 echo '#!/bin/sh
 if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
@@ -222,9 +282,9 @@ cd ..
 echo '******************************************************************  INSTALL COMPLETE ****************************************************************** ';
             show_menu;
         ;;
-        4) clear;
-            option_picked "Option 4 LAZYDOCKER";
-# ************************************************************************************************* 4
+        5) clear;
+            option_picked "Option 5 LAZYDOCKER";
+# ************************************************************************************************* 5
             LAZYDOCKER_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazydocker/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+')
 
             curl -Lo lazydocker.tar.gz "https://github.com/jesseduffield/lazydocker/releases/latest/download/lazydocker_${LAZYDOCKER_VERSION}_Linux_x86_64.tar.gz"
@@ -237,15 +297,15 @@ echo '******************************************************************  INSTAL
             rm -rf lazydocker-temp;
             show_menu;
         ;;
-        5) clear;
-            option_picked "Option 5 STATUS";
-# ************************************************************************************************* 5
+        6) clear;
+            option_picked "Option 6 STATUS";
+# ************************************************************************************************* 6
             lazydocker; #STATUS;
             show_menu;
         ;;
-         6) clear;
-            option_picked "Option 6 UNIFI-PROTECT";
-# ************************************************************************************************* 6
+         7) clear;
+            option_picked "Option 7 UNIFI-PROTECT";
+# ************************************************************************************************* 7
             cd /root
             echo 'REMOVE OLD INSTANCE IF EXIST'
             docker container stop unifi-protect-x86
@@ -293,54 +353,6 @@ echo 'UNIFI-PROTECT UP'
 docker-compose up -d
 echo 'You can login in your https ip port 7443'
 echo 'INSTALLED'; #UNIFI-PROTECT;
-            show_menu;
-        ;;
-        7) clear;
-            option_picked "Option 7 SET PARAMETERS";
-# ************************************************************************************************* 7
-            echo 'Set IP for NVR 1'
-            read NVRIP1
-            echo 'Set TOKEN for camera 1'
-            read TOKENCAM1
-            echo 'Set RTSP URL for camea 1'
-            read RTSPURLCAM1
-            rm /root/unifi-cam-proxy1/docker-compose.yml
-echo "version: '3.2'
-services:
-  unifi-cam-proxy1:
-    build: .
-    container_name: unifi-cam-proxy1
-    volumes:
-      - './client.pem:/client.pem'
-    environment:
-      - "HOST=$NVRIP1"
-      - "TOKEN=$TOKENCAM1"
-      - "RTSP_URL=$RTSPURLCAM1"
-    restart: always" >> docker-compose.yml
-            mv docker-compose.yml /root/unifi-cam-proxy1
-            echo 'DONE'
-            #CAM2
-            echo 'Set IP for NVR 2'
-            read NVRIP2
-            echo 'Set TOKEN for camera 2'
-            read TOKENCAM2
-            echo 'Set RTSP URL for camea 2'
-            read RTSPURLCAM2
-            rm /root/unifi-cam-proxy2/docker-compose.yml
-echo "version: '3.2'
-services:
-  unifi-cam-proxy2:
-    build: .
-    container_name: unifi-cam-proxy2
-    volumes:
-      - './client.pem:/client.pem'
-    environment:
-      - "HOST=$NVRIP2"
-      - "TOKEN=$TOKENCAM2"
-      - "RTSP_URL=$RTSPURLCAM2"
-    restart: always" >> docker-compose.yml
-            mv docker-compose.yml /root/unifi-cam-proxy2
-            echo 'DONE'; #SET-PARAMETERS;
             show_menu;
         ;;
         x)exit;
