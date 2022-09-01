@@ -205,7 +205,8 @@ echo 'DONE'
 
 
 #ENTREYPOINTS CREATION
-cd /root/unifi-cam-proxy1
+cd /root/unifi-cam-proxy1/docker
+rm entrypoint.sh
 echo '#!/bin/sh
 if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
   echo "Using RTSP stream from $RTSP_URL"
@@ -213,7 +214,8 @@ if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
 fi
 exec "$@"' >> entrypoint.sh
 chmod +x entrypoint.sh
-cd /root/unifi-cam-proxy2
+cd /root/unifi-cam-proxy2/docker
+rm entrypoint.sh
 echo '#!/bin/sh
 if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
   echo "Using RTSP stream from $RTSP_URL"
