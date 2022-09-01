@@ -260,7 +260,7 @@ echo ' *************************************************************************
             echo 'REMOVE CONTAINERS' && docker container ls
             docker network rm unifi-cam-proxy1_default && docker network rm unifi-cam-proxy2_default
             echo 'REMOVE NETWORKS' && docker network ls
-            docker image rm unifi-cam-proxy1_unifi-cam-proxy1 unifi-cam-proxy2_unifi-cam-proxy2 python:3.8-alpine3.10
+            docker image remove unifi-cam-proxy1-unifi-cam-proxy1 unifi-cam-proxy2-unifi-cam-proxy2 python:3.8-alpine3.10
             echo 'REMOVE IMAGES' && docker image ls
             echo '************************************************************************************************* ALL ERASED'; #REMOVED;
             show_menu;
