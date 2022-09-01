@@ -84,6 +84,7 @@ services:
       - "TOKEN=$TOKENCAM2"
       - "RTSP_URL=$RTSPURLCAM2"
     restart: always" >> docker-compose.yml
+    cd /root/
             echo 'DONE'; #SET-PARAMETERS;
             show_menu;
         ;;
