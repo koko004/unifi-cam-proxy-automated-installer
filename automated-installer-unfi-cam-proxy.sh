@@ -42,51 +42,24 @@ while [ $opt != '' ]
             option_picked "Option 1 CHANGED PARAMETERS";
 # ************************************************************************************************* 1 
             docker container stop unifi-cam-proxy1 unifi-cam-proxy2
-            echo 'STOP CONTAINERS'
+            echo 'STOPED CONTAINERS'
             docker container rm unifi-cam-proxy1 unifi-cam-proxy2
-            echo 'REMOVE CONTAINERS' && docker container ls
+            echo 'REMOVED CONTAINERS' && docker container ls
             docker network rm unifi-cam-proxy1_default && docker network rm unifi-cam-proxy2_default
-            echo 'REMOVE NETWORKS' && docker network ls
+            echo 'REMOVED NETWORKS' && docker network ls
             docker image rm unifi-cam-proxy1_unifi-cam-proxy1 unifi-cam-proxy2_unifi-cam-proxy2 python:3.8-alpine3.10
-            echo 'REMOVE IMAGES' && docker image ls
+            echo 'REMOVED IMAGES' && docker image ls
             cd /root
             cd unifi-cam-proxy1
-            rm -rf unifi-cam-proxy1/docker-compose.yml
+            rm -rf unifi-cam-proxy1/client.pem
             rm -rf unifi-cam-proxy1/docker/entrypoint.sh
             cd /root
             cd unifi-cam-proxy2
-            rm -rf unifi-cam-proxy2/docker-compose.yml
+            rm -rf unifi-cam-proxy2/client.pem
             rm -rf unifi-cam-proxy2/docker/entrypoint.sh
-            cd /root
-            cd unifi-cam-proxy1            
-echo "version: '3.2'
-services:
-  unifi-cam-proxy1:
-    build: .
-    container_name: unifi-cam-proxy1
-    volumes:
-      - './client.pem:/client.pem'
-    environment:
-      - "HOST=192.168.1.228"
-      - "TOKEN=B7CanJmwUbGbCiW1UfLMZHj0LSyVFka8"
-      - "RTSP_URL=rtsp://hassio:adolfin21@192.168.1.75:554/stream1"
-    restart: always" >> docker-compose.yml
-cd /root
-cd unifi-cam-proxy2
-echo "version: '3.2'
-services:   
-  unifi-cam-proxy2:
-    build: .
-    container_name: unifi-cam-proxy2
-    volumes:
-      - './client.pem:/client.pem'
-    environment:
-      - "HOST=192.168.1.228"
-      - "TOKEN=B7CanJmwUbGbCiW1UfLMZHj0LSyVFka8"
-      - "RTSP_URL=rtsp://admin:@192.168.1.77:554"
-    restart: always" >> docker-compose.yml
-cd /root
-cd unifi-cam-proxy1
+            echo 'REMOVED ENTRYPOINTS AND CERTS'
+#ENTREYPOINTS CREATION
+cd /root/unifi-cam-proxy1
 echo '#!/bin/sh
 if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
   echo "Using RTSP stream from $RTSP_URL"
@@ -94,8 +67,7 @@ if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
 fi
 exec "$@"' >> entrypoint.sh
 chmod +x entrypoint.sh
-cd /root
-cd unifi-cam-proxy2
+cd /root/unifi-cam-proxy2
 echo '#!/bin/sh
 if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
   echo "Using RTSP stream from $RTSP_URL"
@@ -103,23 +75,23 @@ if [ ! -z "${RTSP_URL:-}" ] && [ ! -z "${HOST}" ] && [ ! -z "${TOKEN}" ]; then
 fi
 exec "$@"' >> entrypoint.sh
 chmod +x entrypoint.sh
-cd /root
-cd unifi-cam-proxy1
+#CERT CREATION
+cd /root/unifi-cam-proxy1
+openssl ecparam -out /tmp/private.key -name prime256v1 -genkey -noout
+openssl req -new -sha256 -key /tmp/private.key -out /tmp/server.csr -subj "/C=TW/L=Taipei/O=Ubiquiti Networks Inc./OU=devint/CN=camera.ubnt.dev/emailAddress=support@ubnt.com"
+openssl x509 -req -sha256 -days 36500 -in /tmp/server.csr -signkey /tmp/private.key -out /tmp/public.key
+cat /tmp/private.key /tmp/public.key > client.pem
+rm -f /tmp/private.key /tmp/public.key /tmp/server.csr
+cd /root/unifi-cam-proxy2
 openssl ecparam -out /tmp/private.key -name prime256v1 -genkey -noout
 openssl req -new -sha256 -key /tmp/private.key -out /tmp/server.csr -subj "/C=TW/L=Taipei/O=Ubiquiti Networks Inc./OU=devint/CN=camera.ubnt.dev/emailAddress=support@ubnt.com"
 openssl x509 -req -sha256 -days 36500 -in /tmp/server.csr -signkey /tmp/private.key -out /tmp/public.key
 cat /tmp/private.key /tmp/public.key > client.pem
 rm -f /tmp/private.key /tmp/public.key /tmp/server.csr
 cd /root
-cd unifi-cam-proxy2
-openssl ecparam -out /tmp/private.key -name prime256v1 -genkey -noout
-openssl req -new -sha256 -key /tmp/private.key -out /tmp/server.csr -subj "/C=TW/L=Taipei/O=Ubiquiti Networks Inc./OU=devint/CN=camera.ubnt.dev/emailAddress=support@ubnt.com"
-openssl x509 -req -sha256 -days 36500 -in /tmp/server.csr -signkey /tmp/private.key -out /tmp/public.key
-cat /tmp/private.key /tmp/public.key > client.pem
-rm -f /tmp/private.key /tmp/public.key /tmp/server.csr
-cd /root
+echo 'CERTS CREATED'
 #IF FAILS REMOVE CREATED FILES
-rm -rf client.pem docker-compose.yml entrypoint.sh
+#rm -rf client.pem docker-compose.yml entrypoint.sh
 echo ' ************************************************************************************************* ALL RECREATED'
 cd unifi-cam-proxy1 && docker-compose up -d
 echo ' ************************************************************************************************* CAM1 RECREATED'
