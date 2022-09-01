@@ -64,6 +64,7 @@ services:
     restart: always" >> docker-compose.yml
             echo 'DONE'
             #CAM2
+            mkdir /root/unifi-cam-proxy2 && cd /root/unifi-cam-proxy2
             echo 'Set IP for NVR 2'
             read NVRIP2
             echo 'Set TOKEN for camera 2'
@@ -71,7 +72,6 @@ services:
             echo 'Set RTSP URL for camea 2'
             read RTSPURLCAM2
             rm /root/unifi-cam-proxy2/docker-compose.yml
-            mkdir /root/unifi-cam-proxy2 && cd /root/unifi-cam-proxy2
 echo "version: '3.2'
 services:
   unifi-cam-proxy2:
@@ -84,7 +84,6 @@ services:
       - "TOKEN=$TOKENCAM2"
       - "RTSP_URL=$RTSPURLCAM2"
     restart: always" >> docker-compose.yml
-            mv docker-compose.yml /root/unifi-cam-proxy2
             echo 'DONE'; #SET-PARAMETERS;
             show_menu;
         ;;
