@@ -7,7 +7,7 @@ case $caminstall in
         echo "Instalacion de 1 camara"
         #CAM1
 rm -rf /root/unifi-cam-proxy3/
-mkdir /root/unifi-cam-proxy3
+git clone https://github.com/koko004/unifi-cam-proxy-automated-installer /root/unifi-cam-proxy3
 cd /root/unifi-cam-proxy3
             echo 'Set IP for NVR 1'
             read NVRIP1
