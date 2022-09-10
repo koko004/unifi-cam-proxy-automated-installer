@@ -13,17 +13,20 @@ I only made an automated script for install, reinstall, remove cameras creating 
 
 ## Fast Init
 
-First run Unifi-Protect installer then add Camera and select G3 Micro cam, follow instructions and capture QR to file.
+1. First run Unifi-Protect installer then add Camera and select G3 Micro cam, follow instructions and capture QR generated to image file.
 
-Upload the QR captured to https://zxing.org and copy 4 line this is the TOKEN and you need paste it in this script in section COMPLETE INSTALL and TOKEN fields. 
+2. Upload the QR captured to https://zxing.org and copy 4 line, this is the TOKEN and you need paste it in this script when asked for TOKEN. 
 
+3. Then you can run cam installer, it will ask you for 3 questions:
+
+* 1. IP of UNIFI-PROTECT machine
+* 2. TOKEN (previously created and convert)
+* 3. RTSP address for the camera
+
+This script is made for 3 cams you can install 1, 2 or 3 at same time.
+
+NOTE: You can use same QR for all cameras.
 You can change MACs from entrypoint.sh files.
-
-This script is made for 2 cams you can add more or remove editing COMPLETE INSTALL section.
-
-
-NOTE: You can use same QR for both cameras.
-
 
 ```
 git clone https://github.com/koko004/unifi-cam-proxy-automated-installer
