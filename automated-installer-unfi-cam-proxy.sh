@@ -79,6 +79,7 @@ volumes:
    unifi-protect-db:" >> docker-compose.yml
 echo 'COMPOSE CREATED'
 docker-compose up -d
+clear
 echo 'UNIFI-PROTECT UP'
 echo "You can login in now in https://$(hostname -I | cut -d' ' -f1):7443"
 echo 'INSTALLED';
