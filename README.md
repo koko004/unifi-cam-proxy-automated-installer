@@ -3,6 +3,8 @@
 UniFi Camera Proxy Automated Install
 ====================================
 
+![preview](preview.png)
+
 ## This REPO
 
 This script is made for a fast install and reinstall Non Unifi Cameras in Unifi Protect Instance. 
