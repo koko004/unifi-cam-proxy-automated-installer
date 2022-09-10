@@ -13,7 +13,6 @@ show_menu(){
     printf "${menu}**${number} 2)${menu} INSTALL PROXIED CAMERAS ${normal}\n"
     printf "${menu}**${number} 3)${menu} REMOVE UNIFI-PROTECT OR PROXIED CAMERAS ${normal}\n"
     printf "${menu}**${number} 4)${menu} EXECUTE LAZYDOCKER OR INSTALL ${normal}\n"
-    printf "${menu}**${number} 5)${menu} Some other commands${normal}\n"
     printf "${menu}*********************************************${normal}\n"
     printf "Please enter a menu option and enter or ${fgred}x to exit. ${normal}"
     read opt
